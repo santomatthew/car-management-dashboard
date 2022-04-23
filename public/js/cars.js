@@ -1,66 +1,31 @@
-<%- include('template/header') -%>
-<div class="row">
-    <div class="col-lg-12">
-        <p><b>Cars > </b>List Car</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <p style="font-size: 20px;"><b>List Car</b></p>
-    </div>
-    <div class="col-lg-6 d-flex justify-content-end">
-        <a href="form" class="btn" style="background-color: #0D28A6;color: white;margin-right: 3%;">+ Add
-            New
-            Car</a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <button type="button" class="btn btn-outline-primary active">All</button>
-        <button type="button" class="btn btn-outline-primary">Small</button>
-        <button type="button" class="btn btn-outline-primary">Medium</button>
-        <button type="button" class="btn btn-outline-primary">Right</button>
-    </div>
-</div>
-<div class="row listcars" style="margin-top:20px;">
+const api = axios.create({
+  baseURL: "http://localhost:8000",
+});
 
+let name = document.getElementById("name");
+let price = document.getElementById("price");
+let photo = document.getElementById("photo");
+let update_at = document.getElementById("update_at");
 
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<!-- <script src="../public/js/cars.js"></script> -->
-<script>
-    const api = axios.create({
-        baseURL: "http://localhost:8000",
-    });
-
-    let listcars = document.querySelector(".listcars");
-
-    async function getListCars() {
-        const car = await api.get("/api/v1/cars")
-        let listcar = "";
-        const listFromDb = car.data;
-        for (let i in listFromDb) {
-            listcar += `<div class="col-lg-4 d-flex justify-content-center ">
+function showListofCars(cars) {
+  let listCar = "";
+  for (let i in Cars) {
+    listCar += `<div class="col-lg-4 d-flex justify-content-center ">
   <div class="card" style="width: 25rem;margin-top: 10px;">
       <div class="card-body">
           <div class="row">
               <div class="col-lg-12 d-flex justify-content-center">
-                  <img src=${listFromDb[i].photo} alt=${listFromDb[i].photo} width="100%" height="100%">
+                  <img src=${Cars[i].photo} alt=${Cars[i].photo} width="100%" height="100%">
               </div>
           </div>
           <div class="row">
               <div class="col-lg-12">
-                  <p>${listFromDb[i].name}</p>
+                  <p>${Cars[i].name}</p>
               </div>
           </div>
           <div class="row">
               <div class="col-lg-12">
-                  <p><b>Rp ${rupiah(listFromDb[i].price)}</b></p>
+                  <p><b>Rp ${Cars[i].price}</b></p>
               </div>
           </div>
           <div class="row">
@@ -73,13 +38,13 @@
                           <path d="M10 5V10L13.3333 11.6667" stroke="#8A8A8A" stroke-linecap="round"
                               stroke-linejoin="round" />
                       </svg>
-                      Updated at ${listFromDb[i].updatedAt}
+                      ${Cars[i].updatedAt}
                   </p>
               </div>
           </div>
           <div class="row">
               <div class="col-lg-6 d-flex justify-content-center">
-                  <button onclick="deleteCar(${listFromDb[i].id})" type="button" class="btn btn-outline-danger" style="width :100%;padding: 10%;">
+                  <button id="delete" type="button" class="btn btn-outline-danger" style="width :100%;padding: 10%;">
                       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
                           class="bi bi-trash" viewBox="0 0 16 16">
                           <path
@@ -89,7 +54,7 @@
                       </svg>Delete</button>
               </div>
               <div class="col-lg-6 d-flex justify-content-center">
-                  <a href="/form/${listFromDb[i].id}" class="btn btn-success" style="width :100%;padding: 10%;">
+                  <a href="/form/${Cars[i].id}" class="btn btn-success" style="width :100%;padding: 10%;">
                       <svg xmlns=" http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
                           class="bi bi-pencil-square" viewBox="0 0 16 16">
                           <path
@@ -101,33 +66,31 @@
           </div>
       </div>
   </div>
-</div>`
-        }
-        listcars.innerHTML = listcar;
-    }
+</div>`;
+  }
 
-    function rupiah(price) {
-        let convertPrice = price.toString();
-        let convertString = convertPrice.split("");
-        let array = [];
-        let temp = 3;
+  let listCars = document.querySelector(".listcars");
+  listCars.innerHTML = listCar;
+}
 
-        for (let i = convertString.length - 1; i >= 0; i--) {
-            temp -= 1;
-            array.unshift(convertString[i]);
-            if (temp == 0 && i != 0) {
-                array.unshift(".");
-                temp = 3;
-            }
-        }
-        return array.join("");
-    }
+let deleteData = document.getElementById("delete");
 
+deleteData.onclick = function (e) {
+  e.preventDefault();
+  deleteCar();
+};
 
-    function deleteCar(id) {
-        api.delete(`/api/v1/cars/:${id}`);
-    }
+function deleteCar() {
+  api.delete("/api/v1/cars/:id");
+}
 
-    getListCars();
-</script>
-<%- include('template/footer') -%>
+function getCars() {
+  api
+    .get("/api/v1/cars")
+    .then((result) => {
+      showListofCars(result.data);
+    })
+    .catch(() => {
+      throw new Error("something error");
+    });
+}

@@ -8,6 +8,7 @@ const { PORT = 8000 } = process.env;
 
 app.set("view engine", "ejs");
 app.use(express.static(`public`));
+app.use(express.static(`upload`));
 app.use(express.json());
 
 app.get("/", controllers.carGet);
@@ -24,6 +25,11 @@ app.get("/api/v1/cars/:id", controllers.carGetById);
 app.get("/api/v1/cars", controllers.carGetAll);
 // Post
 app.post("/api/v1/cars", controllers.carPost);
+app.post(
+  "/api/v1/cars-upload",
+  form.single("attachment"),
+  controllers.carUpload
+);
 // Update
 app.put("/api/v1/cars/:id", controllers.carPut);
 // Delete

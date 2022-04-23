@@ -53,7 +53,7 @@
                         <p>Foto*</p>
                     </div>
                     <div class="col-lg-4">
-                        <input id="photo" class="form-control" type="file"
+                        <input id="attachment" class="form-control" type="file"
                             placeholder="https://placeimg.com/640/480/any" aria-label="default input example">
                     </div>
                 </div>
@@ -80,9 +80,14 @@
     let name = document.getElementById("name")
     let price = document.getElementById("price")
     let size = document.getElementById("size")
-    let photo = document.getElementById("photo")
+    let attachment = document.getElementById("attachment")
     let submit = document.getElementById("submit")
+    let uploadedUrl = ""
 
+    attachment.onchange = function (e) {
+        uploadFile(e.target.files[0])
+        e.target.value = null
+    }
 
     submit.onclick = function (e) {
         e.preventDefault();
@@ -100,7 +105,7 @@
             name: name.value,
             price: price.value,
             size_id: parseInt(size.value),
-            photo: photo.value,
+            photo: uploadedUrl,
         })
 
     }
@@ -110,7 +115,19 @@
             name: name.value,
             price: price.value,
             size_id: parseInt(size.value),
-            photo: photo.value,
+            photo: uploadedUrl,
+        })
+    }
+
+
+    function uploadFile(fileData) {
+        let form = new FormData
+        form.append("attachment", fileData)
+        api.post("/api/v1/cars-upload", form, {
+            "content-type": "multipart/form-data"
+        }).then(res => {
+            uploadedUrl = res.data.url
+
         })
     }
 </script>

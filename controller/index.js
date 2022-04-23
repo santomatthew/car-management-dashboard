@@ -6,4 +6,5 @@ module.exports = {
   carPut: require("./car-put"),
   carDelete: require("./car-delete"),
   carGetById: require("./car-by-id"),
+  carUpload: require("./car-upload"),
 };
