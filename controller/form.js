@@ -12,12 +12,13 @@ async function form(req, res) {
   }
 
   let title = "Add Car";
-  let name, price, size_id;
+  let name, price, size_id, photo;
   if (decider) {
     title = "Update Car Information";
     name = realcar.name;
     price = realcar.price;
     size_id = realcar.size_id;
+    photo = realcar.photo;
   }
 
   res.status(200).render("form", {
@@ -26,6 +27,7 @@ async function form(req, res) {
     name: name,
     price: price,
     size_id: size_id,
+    photo: photo,
   });
 }
 

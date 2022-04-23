@@ -13,9 +13,6 @@ app.use(express.json());
 
 app.get("/", controllers.carGet);
 
-// app.get("/addcar", controllers.carPost);
-// app.get("/editcar", controllers.carPut);
-
 // Home
 // app.get("/", controllers.carGet);
 app.get("/form", controllers.form);

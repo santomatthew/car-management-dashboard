@@ -54,7 +54,8 @@
                     </div>
                     <div class="col-lg-4">
                         <input id="attachment" class="form-control" type="file"
-                            placeholder="https://placeimg.com/640/480/any" aria-label="default input example">
+                            placeholder="https://placeimg.com/640/480/any" aria-label="default input example"
+                            value="<%= photo%>">
                     </div>
                 </div>
 
@@ -86,7 +87,7 @@
 
     attachment.onchange = function (e) {
         uploadFile(e.target.files[0])
-        e.target.value = null
+        e.target.value = null;
     }
 
     submit.onclick = function (e) {
