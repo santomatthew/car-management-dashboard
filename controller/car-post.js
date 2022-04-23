@@ -1,7 +1,14 @@
-const Car = require("../models/car");
+const { Cars } = require("../models");
 
-function carPost(req, res) {
-  res.status(200).render("addcar");
+async function carPost(req, res) {
+  let car = await Cars.create({
+    name: req.body.name,
+    price: req.body.price,
+    size_id: req.body.size_id,
+    photo: req.body.photo,
+  });
+
+  res.json(car);
 }
 
 module.exports = carPost;
