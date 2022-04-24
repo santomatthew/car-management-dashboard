@@ -14,7 +14,6 @@ app.use(express.json());
 app.get("/", controllers.carGet);
 
 // Home
-// app.get("/", controllers.carGet);
 app.get("/form", controllers.form);
 app.get("/form/:id", controllers.form);
 app.get("/api/v1/cars/:id", controllers.carGetById);
