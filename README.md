@@ -14,20 +14,46 @@ Car Rental Management Dashboard (REST API)
 
 - yarn
 
+1. Initialization
+
 ```sh
 yarn sequelize-cli init
-change username,password,database,host,dialect in development at config.json
-yarn sequelize-cli db:create
-yarn sequelize-cli model:generate --name Sizes --attributes name:string --underscored
-yarn sequelize-cli model:generate --name Cars --attributes name:string,price:integer,size_id:integer,photo:string --underscored
-set table name into lowercase
-yarn migrate
 ```
 
-- npm
+2. Change the config.json
 
 ```sh
-soon
+change username,password,database,host,dialect in development at config.json
+```
+
+3. Create Database
+
+```sh
+yarn sequelize-cli db:create
+```
+
+4. Create table Sizes
+
+```sh
+yarn sequelize-cli model:generate --name Sizes --attributes name:string --underscored
+```
+
+5. Create table Cars
+
+```sh
+yarn sequelize-cli model:generate --name Cars --attributes name:string,price:integer,size_id:integer,photo:string --underscored
+```
+
+6. Edit table name
+
+```sh
+set table name into lowercase
+```
+
+7. Migrate
+
+```sh
+yarn migrate
 ```
 
 ## Tree (Directory Structure)
