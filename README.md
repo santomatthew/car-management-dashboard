@@ -30,6 +30,48 @@ yarn migrate
 soon
 ```
 
+## Tree (Directory Structure)
+
+```
+challenge
+├─ .gitignore
+├─ config
+│  └─ config.json
+├─ controller
+│  ├─ car-by-id.js
+│  ├─ car-delete.js
+│  ├─ car-get.js
+│  ├─ car-post.js
+│  ├─ car-put.js
+│  ├─ car_get_all.js
+│  ├─ form.js
+│  └─ index.js
+├─ index.js
+├─ migrations
+│  ├─ 20220422124611-create-sizes.js
+│  └─ 20220422124710-create-cars.js
+├─ models
+│  ├─ cars.js
+│  ├─ index.js
+│  └─ sizes.js
+├─ package.json
+├─ public
+│  ├─ img
+│  │  ├─ erd.png
+│  │  └─ imgcar1.png
+│  └─ js
+│     └─ cars.js
+├─ README.md
+├─ seeders
+└─ views
+   ├─ form.ejs
+   ├─ listcar.ejs
+   └─ template
+      ├─ footer.ejs
+      └─ header.ejs
+
+```
+
 ## Endpoints
 
 - app.get("/", controllers.carGet) = Get home page
